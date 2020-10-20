@@ -15,19 +15,23 @@ public class FindUncommonWords {
 
     private static void findUnCommonWords(String A, String B) {
         List<String> finalList = new ArrayList<>();
+        // calculate freq of each word in A
         Map<String, Long> aFreq =
                 Stream.of(A.trim().split("\\s+"))
                         .collect(Collectors.groupingBy(w -> w, Collectors.counting()));
+        // calculate freq of each word in A
         Map<String, Long> bFreq =
                 Stream.of(B.trim().split("\\s+"))
                         .collect(Collectors.groupingBy(w -> w, Collectors.counting()));
-        for (String s : bFreq.keySet()) {
-            if (aFreq.get(s) == null) {
+        // iterate over aFreq keys to check if that key is not present in bFreq
+        for (String s : aFreq.keySet()) {
+            if (bFreq.get(s) == null) {
                 finalList.add(s);
             }
         }
-        for (String s : aFreq.keySet()) {
-            if (bFreq.get(s) == null) {
+        // iterate over bFreq keys to check if that key is not present in aFreq
+        for (String s : bFreq.keySet()) {
+            if (aFreq.get(s) == null) {
                 finalList.add(s);
             }
         }
